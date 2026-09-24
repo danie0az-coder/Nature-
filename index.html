@@ -1,0 +1,1813 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Nature Divine | Moda Praia Natural e Autoral</title>
+  <meta name="description" content="Nature Divine — Biquínis e conjuntos de moda praia natural e autoral criados para mulheres que vivem sua essência sob a luz do sol.">
+  <meta property="og:title" content="Nature Divine | Moda Praia Natural e Autoral">
+  <meta property="og:description" content="Vista a natureza. Sinta sua essência. Peças autorais de moda praia para quem valoriza conexão, liberdade e sofisticação.">
+  <meta property="og:type" content="website">
+
+  <!-- Favicon com a logo oficial -->
+  <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+  <link rel="icon" type="image/png" href="logo.jpg">
+
+  <!-- Fontes Google permitidas para tom editorial de luxo natural -->
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400&family=Plus+Jakarta+Sans:wght@300;400;500;600&display=swap">
+
+  <!-- Basecoat CSS e Shell do Sistema -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/basecoat-css@1.0.2/dist/basecoat.cdn.min.css">
+  <style>
+/* Skip artifact shell — fixed styles served beside every artifact.
+   Complements basecoat; artifacts override --accent for their own identity. */
+:root {
+  color-scheme: light dark;
+  --accent: #2563eb;
+  --accent-contrast: #ffffff;
+  --accent-text: color-mix(in srgb, var(--accent) 72%, #000);
+  --bg: #f8f9fb;
+  --surface: #ffffff;
+  --text: #14171f;
+  --text-muted: #5b6472;
+  --border: rgba(20, 23, 31, 0.10);
+  --radius: 10px;
+  --shadow: 0 1px 3px rgba(20, 23, 31, 0.08);
+  --space: 16px;
+}
+/* Theme resolution. Without data-theme the viewer's system preference decides,
+   as it always did. With it, the artifact's own choice wins in BOTH directions:
+   a page that hardcodes one palette must not be handed the opposite set of
+   tokens by the machine it happens to be opened on. The dark values appear
+   twice because a media query cannot be folded into a selector list.
+   The attribute sits inside :where() so these blocks keep the specificity of a
+   bare :root — the page's own <style> is linked after this file and must go on
+   overriding any token it wants, exactly as it could before. */
+@media (prefers-color-scheme: dark) {
+  :root:where(:not([data-theme="light"])) {
+    --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+    --bg: #101318;
+    --surface: #181c23;
+    --text: #eef1f6;
+    --text-muted: #9aa4b2;
+    --border: rgba(238, 241, 246, 0.12);
+    --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+  }
+}
+:root:where([data-theme="dark"]) {
+  color-scheme: dark;
+  --accent-text: color-mix(in srgb, var(--accent) 78%, #fff);
+  --bg: #101318;
+  --surface: #181c23;
+  --text: #eef1f6;
+  --text-muted: #9aa4b2;
+  --border: rgba(238, 241, 246, 0.12);
+  --shadow: 0 1px 3px rgba(0, 0, 0, 0.4);
+}
+:root:where([data-theme="light"]) { color-scheme: light; }
+* { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; }
+
+.shell-container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+.shell-section { padding: calc(var(--space) * 2) 0; }
+.shell-grid { display: grid; gap: var(--space); grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); }
+.shell-toolbar { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; margin-bottom: var(--space); }
+.shell-footer { padding: 24px 0 40px; color: var(--text-muted); font-size: 13px; }
+
+.shell-hero { padding: calc(var(--space) * 3) 0 calc(var(--space) * 2); }
+.shell-hero h1 { font-size: clamp(26px, 4vw, 40px); line-height: 1.15; margin: 0 0 10px; text-wrap: balance; }
+.shell-hero p { color: var(--text-muted); max-width: 60ch; margin: 0; }
+
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow);
+  padding: var(--space);
+}
+
+.kpi { display: flex; flex-direction: column; gap: 4px; }
+.kpi .kpi-value { font-size: 28px; font-weight: 650; line-height: 1.1; }
+.kpi .kpi-label { font-size: 13px; color: var(--text-muted); }
+.kpi .kpi-delta { font-size: 12.5px; font-weight: 600; }
+.kpi .kpi-delta.up { color: #0a8f3c; }
+.kpi .kpi-delta.down { color: #cf3131; }
+
+table.shell-table { border-collapse: collapse; width: 100%; font-size: 14px; }
+table.shell-table th {
+  text-align: left; font-size: 11.5px; letter-spacing: 0.05em; text-transform: uppercase;
+  color: var(--text-muted); font-weight: 600;
+}
+table.shell-table th, table.shell-table td { padding: 9px 12px 9px 0; border-bottom: 1px solid var(--border); }
+table.shell-table td.num, table.shell-table th.num { text-align: right; font-variant-numeric: tabular-nums; }
+table.shell-table tbody tr:hover { background: color-mix(in srgb, var(--accent) 6%, transparent); }
+
+.chart-box { width: 100%; min-height: 220px; }
+.chart-box svg { width: 100%; height: auto; display: block; }
+
+.muted { color: var(--text-muted); }
+.accent { color: var(--accent-text); }
+.shell-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; padding: 3px 10px; border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent); color: var(--accent-text);
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .shell-fade { animation: shell-fade 400ms ease both; }
+  @keyframes shell-fade { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: none; } }
+}
+
+</style>
+  
+
+  <style>
+    :root {
+      --accent: #2e4d37;
+      --accent-text: #1b3823;
+      --accent-contrast: #ffffff;
+      --forest-dark: #122218;
+      --forest-deep: #1c3324;
+      --forest-leaf: #2e4d37;
+      --olive: #546543;
+      --sand: #ede7dc;
+      --sand-light: #f5f1eb;
+      --cream: #faf7f2;
+      --solar-gold: #c2954a;
+      --solar-gold-light: #dfb66e;
+      --text-main: #1d2620;
+      --text-soft: #4a564c;
+      --line: #dfd8cc;
+      --font-serif: 'Cormorant Garamond', Georgia, serif;
+      --font-sans: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      color: var(--text-main);
+      background-color: var(--cream);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* Tipografia editorial */
+    .serif {
+      font-family: var(--font-serif);
+      font-feature-settings: "kern" 1, "liga" 1;
+    }
+
+    /* Header e Navegação */
+    .nd-header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      transition: background 0.4s ease, backdrop-filter 0.4s ease, box-shadow 0.4s ease, padding 0.3s ease;
+      padding: 1.25rem 2rem;
+      background: transparent;
+    }
+
+    .nd-header.scrolled {
+      background: rgba(250, 247, 242, 0.94);
+      backdrop-filter: blur(14px);
+      -webkit-backdrop-filter: blur(14px);
+      box-shadow: 0 4px 20px rgba(18, 34, 24, 0.06);
+      padding: 0.85rem 2rem;
+      border-bottom: 1px solid rgba(223, 216, 204, 0.7);
+    }
+
+    .nd-nav-wrap {
+      max-width: 1280px;
+      margin: 0 auto;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .nd-brand {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      text-decoration: none;
+      color: #ffffff;
+      transition: color 0.3s ease;
+    }
+
+    .nd-header.scrolled .nd-brand {
+      color: var(--forest-dark);
+    }
+
+    .nd-brand-logo {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      object-fit: cover;
+      display: block;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+    }
+
+    .nd-brand-name {
+      font-family: var(--font-serif);
+      font-size: 1.35rem;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+    }
+
+    .nd-nav-links {
+      display: flex;
+      align-items: center;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nd-nav-links a {
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 500;
+      color: #f5f1eb;
+      transition: color 0.25s ease, opacity 0.25s ease;
+      position: relative;
+    }
+
+    .nd-nav-links a::after {
+      content: '';
+      position: absolute;
+      left: 0;
+      bottom: -4px;
+      width: 0;
+      height: 1px;
+      background: var(--solar-gold);
+      transition: width 0.3s ease;
+    }
+
+    .nd-nav-links a:hover::after {
+      width: 100%;
+    }
+
+    .nd-header.scrolled .nd-nav-links a {
+      color: var(--forest-leaf);
+    }
+
+    .nd-header.scrolled .nd-nav-links a:hover {
+      color: var(--forest-dark);
+    }
+
+    .btn-header-wpp {
+      background: rgba(194, 149, 74, 0.2);
+      border: 1px solid var(--solar-gold);
+      color: #ffffff !important;
+      padding: 0.55rem 1.25rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-weight: 600 !important;
+      transition: all 0.3s ease !important;
+    }
+
+    .btn-header-wpp:hover {
+      background: var(--solar-gold);
+      color: var(--forest-dark) !important;
+      transform: translateY(-1px);
+    }
+
+    .btn-header-wpp::after {
+      display: none !important;
+    }
+
+    .nd-header.scrolled .btn-header-wpp {
+      background: var(--forest-leaf);
+      border-color: var(--forest-leaf);
+      color: #ffffff !important;
+    }
+
+    .nd-header.scrolled .btn-header-wpp:hover {
+      background: var(--forest-dark);
+      border-color: var(--forest-dark);
+      color: #ffffff !important;
+    }
+
+    /* Mobile toggle */
+    .nd-burger {
+      display: none;
+      background: transparent;
+      border: none;
+      cursor: pointer;
+      padding: 0.5rem;
+      color: #ffffff;
+      z-index: 101;
+    }
+
+    .nd-header.scrolled .nd-burger {
+      color: var(--forest-dark);
+    }
+
+    .nd-burger svg {
+      display: block;
+      width: 28px;
+      height: 28px;
+    }
+
+    /* Hero cinematográfico */
+    .nd-hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 7rem 1.5rem 5rem;
+      color: #ffffff;
+      background-color: var(--forest-dark);
+      background-image: 
+        linear-gradient(180deg, rgba(14, 26, 19, 0.65) 0%, rgba(14, 26, 19, 0.6) 50%, rgba(14, 26, 19, 0.85) 100%),
+        url('https://images.pexels.com/photos/15408857/pexels-photo-15408857.jpeg?auto=compress&cs=tinysrgb&w=1920');
+      background-size: cover;
+      background-position: center;
+      background-attachment: scroll;
+      overflow: hidden;
+    }
+
+    /* Sol central no Hero */
+    .nd-hero-sun-wrap {
+      position: relative;
+      margin: 0 auto 2.2rem;
+      width: 170px;
+      height: 170px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .nd-sun-halo {
+      position: absolute;
+      inset: -15px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(223, 182, 110, 0.3) 0%, rgba(223, 182, 110, 0.08) 50%, transparent 70%);
+      pointer-events: none;
+      animation: solarPulse 6s ease-in-out infinite alternate;
+    }
+
+    .nd-sun-img {
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      object-fit: cover;
+      animation: slowSunRotate 60s linear infinite;
+      box-shadow: 0 0 35px rgba(223, 182, 110, 0.25);
+      border: 1px solid rgba(223, 182, 110, 0.3);
+    }
+
+    @keyframes slowSunRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes solarPulse {
+      0% { transform: scale(0.96); opacity: 0.7; }
+      100% { transform: scale(1.08); opacity: 1; }
+    }
+
+    /* Borboletas sutis no Hero */
+    .nd-butterfly {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.45;
+      fill: rgba(245, 237, 222, 0.85);
+      filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+    }
+
+    /* Pássaros sutis no Hero, voando mais alto que as borboletas */
+    .nd-bird {
+      position: absolute;
+      pointer-events: none;
+      opacity: 0.5;
+      fill: none;
+      stroke: rgba(223, 182, 110, 0.75);
+      stroke-width: 1.6;
+      stroke-linecap: round;
+      filter: drop-shadow(0 2px 3px rgba(0,0,0,0.25));
+    }
+
+    .nd-bd1 {
+      top: 10%;
+      left: -8%;
+      width: 30px;
+      height: 30px;
+      animation: flyAcross1 26s linear infinite;
+    }
+
+    .nd-bd2 {
+      top: 16%;
+      left: -8%;
+      width: 20px;
+      height: 20px;
+      animation: flyAcross3 30s linear 9s infinite;
+    }
+
+    .nd-bd3 {
+      top: 7%;
+      left: -8%;
+      width: 16px;
+      height: 16px;
+      animation: flyAcross2 34s linear 18s infinite;
+    }
+
+    .nd-b1 {
+      top: 25%;
+      left: -10%;
+      animation: flyAcross1 32s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+      width: 24px;
+      height: 24px;
+    }
+
+    .nd-b2 {
+      top: 60%;
+      left: -10%;
+      animation: flyAcross2 38s cubic-bezier(0.4, 0, 0.2, 1) 12s infinite;
+      width: 18px;
+      height: 18px;
+    }
+
+    .nd-b3 {
+      top: 40%;
+      left: -10%;
+      animation: flyAcross3 44s cubic-bezier(0.4, 0, 0.2, 1) 22s infinite;
+      width: 22px;
+      height: 22px;
+    }
+
+    @keyframes flyAcross1 {
+      0% { transform: translate(0, 0) scale(0.9); opacity: 0; }
+      10% { opacity: 0.6; }
+      45% { transform: translate(60vw, -40px) scale(1); }
+      85% { opacity: 0.5; }
+      100% { transform: translate(120vw, 30px) scale(0.9); opacity: 0; }
+    }
+
+    @keyframes flyAcross2 {
+      0% { transform: translate(0, 0) scale(0.85); opacity: 0; }
+      15% { opacity: 0.55; }
+      50% { transform: translate(65vw, 45px) scale(0.95); }
+      90% { opacity: 0.45; }
+      100% { transform: translate(120vw, -30px) scale(0.85); opacity: 0; }
+    }
+
+    @keyframes flyAcross3 {
+      0% { transform: translate(0, 0) scale(0.95); opacity: 0; }
+      10% { opacity: 0.5; }
+      50% { transform: translate(55vw, -35px) scale(1); }
+      85% { opacity: 0.4; }
+      100% { transform: translate(120vw, 15px) scale(0.9); opacity: 0; }
+    }
+
+    .nd-hero-content {
+      position: relative;
+      z-index: 2;
+      max-width: 820px;
+      margin: 0 auto;
+    }
+
+    .nd-hero-title {
+      font-size: clamp(2.6rem, 6vw, 4.8rem);
+      letter-spacing: 0.18em;
+      font-weight: 500;
+      line-height: 1.12;
+      text-transform: uppercase;
+      margin-bottom: 0.8rem;
+      color: #faf7f2;
+      text-shadow: 0 3px 18px rgba(0,0,0,0.5);
+    }
+
+    .nd-hero-slogan {
+      font-size: clamp(1.2rem, 2.5vw, 1.85rem);
+      font-style: italic;
+      color: var(--solar-gold-light);
+      margin-bottom: 1.5rem;
+      letter-spacing: 0.04em;
+      font-weight: 400;
+    }
+
+    .nd-hero-desc {
+      font-size: clamp(0.98rem, 1.35vw, 1.15rem);
+      color: rgba(250, 247, 242, 0.92);
+      max-width: 660px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.8;
+      font-weight: 300;
+    }
+
+    .nd-hero-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+    }
+
+    .btn-nd-primary {
+      background: var(--solar-gold);
+      color: var(--forest-dark);
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.95rem 2rem;
+      border-radius: 9999px;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.25);
+    }
+
+    .btn-nd-primary:hover {
+      background: #dfb66e;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(194, 149, 74, 0.4);
+    }
+
+    .btn-nd-outline {
+      background: transparent;
+      color: #faf7f2;
+      text-decoration: none;
+      font-size: 0.88rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      padding: 0.95rem 2rem;
+      border-radius: 9999px;
+      border: 1px solid rgba(250, 247, 242, 0.6);
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .btn-nd-outline:hover {
+      border-color: #faf7f2;
+      background: rgba(250, 247, 242, 0.12);
+      transform: translateY(-2px);
+    }
+
+    /* Seções genéricas */
+    .nd-section {
+      padding: 7rem 1.5rem;
+      position: relative;
+    }
+
+    .nd-container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .nd-container-narrow {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .section-eyebrow {
+      display: block;
+      font-size: 0.8rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: var(--olive);
+      font-weight: 600;
+      margin-bottom: 0.75rem;
+    }
+
+    .section-title {
+      font-size: clamp(2.1rem, 4vw, 3.4rem);
+      color: var(--forest-dark);
+      line-height: 1.18;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+    }
+
+    .section-subtitle {
+      font-size: 1.05rem;
+      color: var(--text-soft);
+      line-height: 1.75;
+      font-weight: 400;
+    }
+
+    /* Seção História */
+    .nd-history {
+      background: linear-gradient(180deg, var(--sand-light) 0%, var(--cream) 100%);
+      overflow: hidden;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nd-watermark {
+      position: absolute;
+      right: -8%;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 520px;
+      height: 520px;
+      opacity: 0.045;
+      pointer-events: none;
+      user-select: none;
+      filter: grayscale(1);
+    }
+
+    .nd-history-highlight {
+      font-size: clamp(1.6rem, 2.8vw, 2.4rem);
+      color: var(--forest-leaf);
+      line-height: 1.3;
+      margin-bottom: 2rem;
+      font-style: italic;
+    }
+
+    .nd-history-body p {
+      font-size: 1.05rem;
+      color: var(--text-soft);
+      line-height: 1.85;
+      margin-bottom: 1.5rem;
+    }
+
+    .nd-history-box {
+      margin-top: 2.5rem;
+      padding: 1.75rem 2rem;
+      border-left: 2px solid var(--solar-gold);
+      background: rgba(237, 231, 220, 0.45);
+      border-radius: 0 12px 12px 0;
+    }
+
+    .nd-history-box p {
+      margin-bottom: 0;
+      font-size: 0.96rem;
+      color: var(--olive);
+      font-style: italic;
+    }
+
+    /* Seção Essência */
+    .nd-essence {
+      background-color: var(--cream);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nd-essence-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.5rem;
+      margin-top: 3.5rem;
+    }
+
+    .nd-essence-block {
+      background: #ffffff;
+      padding: 3rem 2.5rem;
+      border-radius: 16px;
+      border: 1px solid rgba(223, 216, 204, 0.7);
+      box-shadow: 0 6px 25px rgba(28, 51, 36, 0.03);
+      position: relative;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .nd-essence-block:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 14px 35px rgba(28, 51, 36, 0.07);
+    }
+
+    .nd-essence-top {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 1.5rem;
+    }
+
+    .nd-essence-num {
+      font-size: 0.88rem;
+      letter-spacing: 0.2em;
+      font-weight: 600;
+      color: var(--solar-gold);
+    }
+
+    .nd-essence-mini-logo {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      opacity: 0.55;
+    }
+
+    .nd-essence-title {
+      font-size: 1.85rem;
+      color: var(--forest-dark);
+      margin-bottom: 0.85rem;
+      font-weight: 600;
+    }
+
+    .nd-essence-text {
+      font-size: 1.05rem;
+      color: var(--text-soft);
+      line-height: 1.7;
+    }
+
+    /* Seção Coleção - Editorial */
+    .nd-collection {
+      background: linear-gradient(180deg, var(--sand-light) 0%, #ffffff 100%);
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nd-collection-header {
+      margin-bottom: 4.5rem;
+    }
+
+    .nd-looks-list {
+      display: flex;
+      flex-direction: column;
+      gap: 5.5rem;
+    }
+
+    .nd-look-item {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 4rem;
+      align-items: center;
+    }
+
+    .nd-look-item:nth-child(even) {
+      direction: rtl;
+    }
+
+    .nd-look-item:nth-child(even) .nd-look-content {
+      direction: ltr;
+    }
+
+    .nd-look-frame {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      box-shadow: 0 16px 45px rgba(20, 34, 24, 0.12);
+      background-color: var(--sand);
+      border: 1px solid rgba(223, 216, 204, 0.8);
+    }
+
+    .nd-look-frame.aspect-3-4 {
+      aspect-ratio: 3 / 4;
+    }
+
+    .nd-look-frame.aspect-4-5 {
+      aspect-ratio: 4 / 5;
+    }
+
+    .nd-look-img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1);
+    }
+
+    .nd-look-frame:hover .nd-look-img {
+      transform: scale(1.04);
+    }
+
+    .nd-look-content {
+      padding: 1.5rem 0;
+    }
+
+    .nd-look-badge {
+      display: inline-block;
+      font-size: 0.76rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 600;
+      color: var(--forest-leaf);
+      background: rgba(46, 77, 55, 0.08);
+      padding: 0.35rem 0.9rem;
+      border-radius: 9999px;
+      margin-bottom: 1.25rem;
+    }
+
+    .nd-look-name {
+      font-size: clamp(2rem, 3.2vw, 2.9rem);
+      color: var(--forest-dark);
+      font-weight: 500;
+      line-height: 1.18;
+      margin-bottom: 1.1rem;
+    }
+
+    .nd-look-desc {
+      font-size: 1.06rem;
+      color: var(--text-soft);
+      line-height: 1.75;
+      margin-bottom: 1.5rem;
+    }
+
+    .nd-look-details {
+      display: inline-block;
+      font-size: 0.88rem;
+      color: var(--olive);
+      font-weight: 500;
+      letter-spacing: 0.04em;
+      margin-bottom: 2rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px dashed var(--line);
+    }
+
+    .btn-look-wpp {
+      background: var(--forest-leaf);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.84rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 0.85rem 1.8rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(46, 77, 55, 0.2);
+    }
+
+    .btn-look-wpp:hover {
+      background: var(--forest-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(46, 77, 55, 0.3);
+    }
+
+    .btn-look-wpp svg {
+      width: 17px;
+      height: 17px;
+      fill: currentColor;
+    }
+
+    /* Manifesto cinematográfico */
+    .nd-manifesto {
+      position: relative;
+      min-height: 80vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 8rem 1.5rem;
+      color: #ffffff;
+      background-color: var(--forest-dark);
+      background-image: 
+        linear-gradient(180deg, rgba(14, 26, 19, 0.78) 0%, rgba(14, 26, 19, 0.82) 100%),
+        url('https://images.pexels.com/photos/15408857/pexels-photo-15408857.jpeg?auto=compress&cs=tinysrgb&w=1920');
+      background-size: cover;
+      background-position: center;
+      overflow: hidden;
+    }
+
+    .nd-manifesto-watermark {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      width: 480px;
+      height: 480px;
+      opacity: 0.08;
+      border-radius: 50%;
+      pointer-events: none;
+      user-select: none;
+      animation: slowSunRotate 70s linear infinite;
+    }
+
+    .nd-manifesto-content {
+      position: relative;
+      z-index: 2;
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .nd-manifesto-quote {
+      font-size: clamp(2.3rem, 5vw, 4.2rem);
+      line-height: 1.2;
+      font-weight: 500;
+      color: #faf7f2;
+      margin-bottom: 2rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.5);
+    }
+
+    .nd-manifesto-text {
+      font-size: clamp(1.05rem, 1.5vw, 1.3rem);
+      color: rgba(250, 247, 242, 0.9);
+      line-height: 1.85;
+      max-width: 680px;
+      margin: 0 auto;
+      font-weight: 300;
+      letter-spacing: 0.02em;
+    }
+
+    /* Seção Contato */
+    .nd-contact {
+      background: var(--cream);
+      padding: 7rem 1.5rem;
+      text-align: center;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .nd-contact-actions {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1.25rem;
+      flex-wrap: wrap;
+      margin: 2.5rem 0 2rem;
+    }
+
+    .btn-contact-wpp {
+      background: var(--forest-leaf);
+      color: #ffffff;
+      text-decoration: none;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 1rem 2.2rem;
+      border-radius: 9999px;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 18px rgba(46, 77, 55, 0.22);
+    }
+
+    .btn-contact-wpp:hover {
+      background: var(--forest-dark);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(46, 77, 55, 0.3);
+    }
+
+    .btn-contact-insta {
+      background: transparent;
+      color: var(--forest-dark);
+      text-decoration: none;
+      font-size: 0.92rem;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      font-weight: 600;
+      padding: 1rem 2.2rem;
+      border-radius: 9999px;
+      border: 1px solid var(--forest-leaf);
+      display: inline-flex;
+      align-items: center;
+      gap: 0.75rem;
+      transition: all 0.3s ease;
+    }
+
+    .btn-contact-insta:hover {
+      background: var(--forest-leaf);
+      color: #ffffff;
+      transform: translateY(-2px);
+    }
+
+    .nd-contact-note {
+      font-size: 0.92rem;
+      color: var(--olive);
+      margin-top: 1.5rem;
+      letter-spacing: 0.03em;
+    }
+
+    /* Footer */
+    .nd-footer {
+      background-color: var(--forest-dark);
+      color: #faf7f2;
+      padding: 5rem 1.5rem 3rem;
+      text-align: center;
+    }
+
+    .nd-footer-logo {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      object-fit: cover;
+      margin: 0 auto 1.25rem;
+      display: block;
+      box-shadow: 0 4px 18px rgba(0,0,0,0.3);
+    }
+
+    .nd-footer-title {
+      font-size: 1.7rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      font-weight: 500;
+      margin-bottom: 0.5rem;
+    }
+
+    .nd-footer-slogan {
+      font-size: 1.05rem;
+      font-style: italic;
+      color: var(--solar-gold-light);
+      margin-bottom: 2.5rem;
+      font-weight: 400;
+    }
+
+    .nd-footer-links {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 2rem;
+      list-style: none;
+      flex-wrap: wrap;
+      margin-bottom: 3.5rem;
+      padding-bottom: 2.5rem;
+      border-bottom: 1px solid rgba(250, 247, 242, 0.12);
+    }
+
+    .nd-footer-links a {
+      color: rgba(250, 247, 242, 0.78);
+      text-decoration: none;
+      font-size: 0.85rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      font-weight: 500;
+      transition: color 0.25s ease;
+    }
+
+    .nd-footer-links a:hover {
+      color: var(--solar-gold-light);
+    }
+
+    .nd-footer-copy {
+      font-size: 0.82rem;
+      color: rgba(250, 247, 242, 0.5);
+      letter-spacing: 0.05em;
+    }
+
+    /* Botão flutuante WhatsApp */
+    .nd-floating-wpp {
+      position: fixed;
+      bottom: 2rem;
+      right: 2rem;
+      z-index: 99;
+      width: 58px;
+      height: 58px;
+      border-radius: 50%;
+      background: #25d366;
+      color: #ffffff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 0 6px 25px rgba(37, 211, 102, 0.45);
+      text-decoration: none;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .nd-floating-wpp:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 10px 30px rgba(37, 211, 102, 0.55);
+    }
+
+    .nd-floating-wpp svg {
+      width: 30px;
+      height: 30px;
+      fill: #ffffff;
+    }
+
+    /* Mobile menu drawer */
+    .nd-mobile-menu {
+      position: fixed;
+      inset: 0;
+      background: rgba(18, 34, 24, 0.98);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      z-index: 100;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 2rem;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 0.35s ease;
+    }
+
+    .nd-mobile-menu.open {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nd-mobile-links {
+      list-style: none;
+      text-align: center;
+      display: flex;
+      flex-direction: column;
+      gap: 1.8rem;
+      margin-bottom: 2.5rem;
+    }
+
+    .nd-mobile-links a {
+      color: #faf7f2;
+      text-decoration: none;
+      font-size: 1.35rem;
+      font-family: var(--font-serif);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      transition: color 0.25s ease;
+    }
+
+    .nd-mobile-links a:hover {
+      color: var(--solar-gold);
+    }
+
+    /* Acessibilidade e Foco */
+    a:focus-visible, button:focus-visible {
+      outline: 2px solid var(--solar-gold);
+      outline-offset: 3px;
+    }
+
+    /* Responsividade */
+    @media (max-width: 960px) {
+      .nd-nav-links {
+        display: none;
+      }
+      .nd-burger {
+        display: block;
+      }
+      .nd-essence-grid {
+        grid-template-columns: 1fr;
+        gap: 1.5rem;
+      }
+      .nd-look-item, .nd-look-item:nth-child(even) {
+        grid-template-columns: 1fr;
+        gap: 2rem;
+        direction: ltr;
+      }
+      .nd-looks-list {
+        gap: 4.5rem;
+      }
+      .nd-look-frame {
+        max-width: 520px;
+        margin: 0 auto;
+      }
+      .nd-section {
+        padding: 5rem 1.25rem;
+      }
+      .nd-hero {
+        padding: 6.5rem 1.25rem 4rem;
+      }
+      .nd-hero-sun-wrap {
+        width: 130px;
+        height: 130px;
+        margin-bottom: 1.8rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .nd-floating-wpp {
+        bottom: 1.25rem;
+        right: 1.25rem;
+        width: 52px;
+        height: 52px;
+      }
+      .nd-floating-wpp svg {
+        width: 26px;
+        height: 26px;
+      }
+      .nd-hero-actions {
+        flex-direction: column;
+        width: 100%;
+      }
+      .nd-hero-actions .btn-nd-primary,
+      .nd-hero-actions .btn-nd-outline {
+        width: 100%;
+      }
+      .nd-header {
+        padding: 1rem 1.25rem;
+      }
+      .nd-header.scrolled {
+        padding: 0.75rem 1.25rem;
+      }
+    }
+
+    /* Preferência de movimento reduzido */
+    @media (prefers-reduced-motion: reduce) {
+      .nd-sun-img, .nd-sun-halo, .nd-butterfly, .nd-bird, .nd-manifesto-watermark {
+        animation: none !important;
+      }
+      .nd-look-img {
+        transition: none !important;
+      }
+    }
+
+    /* Print styles */
+    @media print {
+      .nd-header, .nd-floating-wpp, .nd-burger, .btn-look-wpp, .nd-contact-actions {
+        display: none !important;
+      }
+      body {
+        background: #ffffff;
+        color: #000000;
+      }
+    }
+  </style>
+</head>
+<body id="top">
+
+  <!-- ==========================================
+       HEADER INSTITUCIONAL
+       ========================================== -->
+  <header class="nd-header" id="mainHeader">
+    <div class="nd-nav-wrap">
+      <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+      <a href="#top" class="nd-brand" aria-label="Nature Divine - Ir ao início">
+        <img src="logo.jpg" alt="Logo Nature Divine" class="nd-brand-logo">
+        <span class="nd-brand-name">Nature Divine</span>
+      </a>
+
+      <!-- Menu Desktop -->
+      <ul class="nd-nav-links">
+        <li><a href="#historia">História</a></li>
+        <li><a href="#essencia">Essência</a></li>
+        <li><a href="#colecao">Coleção</a></li>
+        <li><a href="#manifesto">Manifesto</a></li>
+        <li><a href="#contato">Contato</a></li>
+        <li>
+          <a href="https://wa.me/5562995076301" target="_blank" rel="noopener noreferrer" class="btn-header-wpp" aria-label="Converse pelo WhatsApp">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+              <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+            </svg>
+            WhatsApp
+          </a>
+        </li>
+      </ul>
+
+      <!-- Botão Hambúrguer Mobile -->
+      <button class="nd-burger" id="burgerBtn" aria-label="Abrir menu de navegação" aria-expanded="false" aria-controls="mobileMenu">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <line x1="3" y1="12" x2="21" y2="12"></line>
+          <line x1="3" y1="6" x2="21" y2="6"></line>
+          <line x1="3" y1="18" x2="21" y2="18"></line>
+        </svg>
+      </button>
+    </div>
+  </header>
+
+  <!-- Menu Drawer Mobile -->
+  <div class="nd-mobile-menu" id="mobileMenu" aria-hidden="true">
+    <ul class="nd-mobile-links">
+      <li><a href="#historia" class="mobile-nav-link">História</a></li>
+      <li><a href="#essencia" class="mobile-nav-link">Essência</a></li>
+      <li><a href="#colecao" class="mobile-nav-link">Coleção</a></li>
+      <li><a href="#manifesto" class="mobile-nav-link">Manifesto</a></li>
+      <li><a href="#contato" class="mobile-nav-link">Contato</a></li>
+    </ul>
+    <a href="https://wa.me/5562995076301" target="_blank" rel="noopener noreferrer" class="btn-nd-primary" style="font-size:0.85rem; padding: 0.85rem 2rem;">
+      Falar no WhatsApp
+    </a>
+  </div>
+
+  <!-- ==========================================
+       HERO (TELA CHEIA, CINEMATOGRÁFICA)
+       ========================================== -->
+  <!-- Na publicação final, salve a imagem de fundo como floresta.jpg na mesma pasta -->
+  <section class="nd-hero" id="hero">
+    <!-- Borboletas sutis -->
+    <svg class="nd-butterfly nd-b1" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 7C15 3 21 4 21 9C21 13 16 13 12 10C8 13 3 13 3 9C3 4 9 3 12 7Z M12 10C15 11 19 12 18 16C17 19 13 17 12 13C11 17 7 19 6 16C5 12 9 11 12 10Z M11.3 6.5C11.1 10 11.2 14 11.3 18.5C11.5 19.3 12.5 19.3 12.7 18.5C12.8 14 12.9 10 12.7 6.5C12.5 5.8 11.5 5.8 11.3 6.5Z"/>
+    </svg>
+    <svg class="nd-butterfly nd-b2" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 7C15 3 21 4 21 9C21 13 16 13 12 10C8 13 3 13 3 9C3 4 9 3 12 7Z M12 10C15 11 19 12 18 16C17 19 13 17 12 13C11 17 7 19 6 16C5 12 9 11 12 10Z M11.3 6.5C11.1 10 11.2 14 11.3 18.5C11.5 19.3 12.5 19.3 12.7 18.5C12.8 14 12.9 10 12.7 6.5C12.5 5.8 11.5 5.8 11.3 6.5Z"/>
+    </svg>
+    <svg class="nd-butterfly nd-b3" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M12 7C15 3 21 4 21 9C21 13 16 13 12 10C8 13 3 13 3 9C3 4 9 3 12 7Z M12 10C15 11 19 12 18 16C17 19 13 17 12 13C11 17 7 19 6 16C5 12 9 11 12 10Z M11.3 6.5C11.1 10 11.2 14 11.3 18.5C11.5 19.3 12.5 19.3 12.7 18.5C12.8 14 12.9 10 12.7 6.5C12.5 5.8 11.5 5.8 11.3 6.5Z"/>
+    </svg>
+
+    <!-- Pássaros sutis, voando mais alto -->
+    <svg class="nd-bird nd-bd1" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2 14c3-5 6-5 9-1c3-4 6-4 9 1"/>
+    </svg>
+    <svg class="nd-bird nd-bd2" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2 14c3-5 6-5 9-1c3-4 6-4 9 1"/>
+    </svg>
+    <svg class="nd-bird nd-bd3" viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M2 14c3-5 6-5 9-1c3-4 6-4 9 1"/>
+    </svg>
+
+    <div class="nd-hero-content">
+      <!-- Sol central com rotação lenta -->
+      <div class="nd-hero-sun-wrap">
+        <div class="nd-sun-halo"></div>
+        <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+        <img src="logo.jpg" alt="Símbolo Solar Nature Divine" class="nd-sun-img">
+      </div>
+
+      <h1 class="nd-hero-title serif">Nature Divine</h1>
+      <p class="nd-hero-slogan serif">Vista a natureza. Sinta sua essência.</p>
+      <p class="nd-hero-desc">
+        Biquínis e conjuntos criados para mulheres que desejam se sentir autênticas, confiantes e conectadas com a sua mais pura energia sob a luz do sol.
+      </p>
+
+      <div class="nd-hero-actions">
+        <a href="#historia" class="btn-nd-primary">Conhecer a história</a>
+        <a href="#colecao" class="btn-nd-outline">Ver coleção</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       HISTÓRIA ("A NOSSA HISTÓRIA")
+       ========================================== -->
+  <section class="nd-section nd-history" id="historia">
+    <!-- Marca d'água oficial em baixa opacidade -->
+    <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+    <img src="logo.jpg" alt="" class="nd-watermark" aria-hidden="true">
+
+    <div class="nd-container nd-container-narrow">
+      <span class="section-eyebrow">Origem & Propósito</span>
+      <h2 class="section-title serif">A nossa história</h2>
+      
+      <p class="nd-history-highlight serif">
+        "Nascer da natureza. Vestir a liberdade."
+      </p>
+
+      <div class="nd-history-body">
+        <p>
+          Uma marca para mulheres que encontram beleza no que é natural e força no que é verdadeiro.
+        </p>
+        <p>
+          A Nature Divine nasce da vontade de transformar a moda praia em uma experiência de conexão: com o sol, com a água, com a natureza e, principalmente, com a própria essência.
+        </p>
+      </div>
+
+      <div class="nd-history-box">
+        <p>
+          Este espaço foi pensado para receber a história real da marca e da sua fundadora, preservando a voz e os detalhes que tornam a Nature Divine única.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       ESSÊNCIA ("O QUE NOS MOVE")
+       ========================================== -->
+  <section class="nd-section nd-essence" id="essencia">
+    <div class="nd-container">
+      <div style="max-width: 680px;">
+        <span class="section-eyebrow">Pilares Fundamentais</span>
+        <h2 class="section-title serif">O que nos move — A nossa essência</h2>
+        <p class="section-subtitle">
+          Liberdade, natureza e essência formam a base da identidade Nature Divine.
+        </p>
+      </div>
+
+      <div class="nd-essence-grid">
+        <!-- 01 Liberdade -->
+        <div class="nd-essence-block">
+          <div>
+            <div class="nd-essence-top">
+              <span class="nd-essence-num">01</span>
+              <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+              <img src="logo.jpg" alt="" class="nd-essence-mini-logo" aria-hidden="true">
+            </div>
+            <h3 class="nd-essence-title serif">Liberdade</h3>
+          </div>
+          <p class="nd-essence-text">Movimento, leveza e confiança.</p>
+        </div>
+
+        <!-- 02 Natureza -->
+        <div class="nd-essence-block">
+          <div>
+            <div class="nd-essence-top">
+              <span class="nd-essence-num">02</span>
+              <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+              <img src="logo.jpg" alt="" class="nd-essence-mini-logo" aria-hidden="true">
+            </div>
+            <h3 class="nd-essence-title serif">Natureza</h3>
+          </div>
+          <p class="nd-essence-text">Cores, texturas e formas inspiradas no mundo natural.</p>
+        </div>
+
+        <!-- 03 Essência -->
+        <div class="nd-essence-block">
+          <div>
+            <div class="nd-essence-top">
+              <span class="nd-essence-num">03</span>
+              <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+              <img src="logo.jpg" alt="" class="nd-essence-mini-logo" aria-hidden="true">
+            </div>
+            <h3 class="nd-essence-title serif">Essência</h3>
+          </div>
+          <p class="nd-essence-text">Peças pensadas para valorizar personalidade e autenticidade.</p>
+        </div>
+
+        <!-- 04 Sol -->
+        <div class="nd-essence-block">
+          <div>
+            <div class="nd-essence-top">
+              <span class="nd-essence-num">04</span>
+              <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+              <img src="logo.jpg" alt="" class="nd-essence-mini-logo" aria-hidden="true">
+            </div>
+            <h3 class="nd-essence-title serif">Sol</h3>
+          </div>
+          <p class="nd-essence-text">Energia, presença e ciclos naturais.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       COLEÇÃO (APRESENTAÇÃO EDITORIAL)
+       ========================================== -->
+  <section class="nd-section nd-collection" id="colecao">
+    <div class="nd-container">
+      <div class="nd-collection-header" style="max-width: 740px;">
+        <span class="section-eyebrow">Edição Autoral</span>
+        <h2 class="section-title serif">Peças emblemáticas — A coleção</h2>
+        <p class="section-subtitle">
+          Uma apresentação editorial das criações atuais. As fotografias reais dos produtos podem ser inseridas nesta estrutura quando estiverem disponíveis.
+        </p>
+      </div>
+
+      <div class="nd-looks-list">
+
+        <!-- Look 1: Divine Blue -->
+        <article class="nd-look-item">
+          <div class="nd-look-frame aspect-3-4">
+            <!-- Na publicação final, salve como look-azul.jpg na mesma pasta do index.html e troque o src para look-azul.jpg -->
+            <img 
+              src="biquiniazul.jpg" 
+              alt="Biquíni de Fita Divine Blue com medalhão dourado exclusivo sobre pedras e folhas naturais" 
+              class="nd-look-img" 
+              loading="lazy">
+          </div>
+          <div class="nd-look-content">
+            <span class="nd-look-badge">Biquíni de Fita</span>
+            <h3 class="nd-look-name serif">Divine Blue</h3>
+            <p class="nd-look-desc">
+              Biquíni azul-claro sereno adornado com medalhão dourado exclusivo, evocando as águas cristalinas e a divindade feminina.
+            </p>
+            <div class="nd-look-details">
+              Medalhão Banhado a Ouro · Toque Acetinado · Design Anatômico
+            </div>
+            <div>
+              <a href="https://wa.me/5562995076301?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20e%20saber%20mais%20detalhes%20do%20modelo%20*Divine%20Blue*!" target="_blank" rel="noopener noreferrer" class="btn-look-wpp" aria-label="Quero saber mais sobre o modelo Divine Blue via WhatsApp">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                Quero saber mais
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Look 2: Look Branco Solar -->
+        <article class="nd-look-item">
+          <div class="nd-look-frame aspect-3-4">
+            <!-- Na publicação final, salve como look-branco.jpg na mesma pasta do index.html e troque o src para look-branco.jpg -->
+            <img 
+              src="biquinibranco.jpg" 
+              alt="Look Branco Solar com óculos e lenço estampado em harmonia natural" 
+              class="nd-look-img" 
+              loading="lazy">
+          </div>
+          <div class="nd-look-content">
+            <span class="nd-look-badge">Biquíni</span>
+            <h3 class="nd-look-name serif">Look Branco Solar</h3>
+            <p class="nd-look-desc">
+              Look branco luminoso com leveza e frescor, pensado para realçar a beleza natural sob a luz do sol.
+            </p>
+            <div class="nd-look-details">
+              Modelagem Confortável · Visual Leve · Estilo Autoral
+            </div>
+            <div>
+              <a href="https://wa.me/5562995076301?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20e%20saber%20mais%20detalhes%20do%20modelo%20*Look%20Branco%20Solar*!" target="_blank" rel="noopener noreferrer" class="btn-look-wpp" aria-label="Quero saber mais sobre o Look Branco Solar via WhatsApp">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                Quero saber mais
+              </a>
+            </div>
+          </div>
+        </article>
+
+        <!-- Look 3: Conjunto Laranja Vibrante -->
+        <article class="nd-look-item">
+          <div class="nd-look-frame aspect-4-5">
+            <!-- Na publicação final, salve como look-laranja.jpg na mesma pasta do index.html e troque o src para look-laranja.jpg -->
+            <img 
+              src="laranja.jpg" 
+              alt="Conjunto Laranja Vibrante com top sem alças e detalhe trançado artesanal" 
+              class="nd-look-img" 
+              loading="lazy">
+          </div>
+          <div class="nd-look-content">
+            <span class="nd-look-badge">Conjunto</span>
+            <h3 class="nd-look-name serif">Conjunto Laranja Vibrante</h3>
+            <p class="nd-look-desc">
+              Conjunto em laranja vibrante com top sem alças de detalhe trançado e calcinha de corte clássico, energia solar em forma de peça.
+            </p>
+            <div class="nd-look-details">
+              Top Trançado · Corte Clássico · Presença Marcante
+            </div>
+            <div>
+              <a href="https://wa.me/5562995076301?text=Ol%C3%A1%2C%20gostaria%20de%20pedir%20e%20saber%20mais%20detalhes%20do%20modelo%20*Conjunto%20Laranja%20Vibrante*!" target="_blank" rel="noopener noreferrer" class="btn-look-wpp" aria-label="Quero saber mais sobre o Conjunto Laranja Vibrante via WhatsApp">
+                <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/></svg>
+                Quero saber mais
+              </a>
+            </div>
+          </div>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       MANIFESTO CINEMATOGRÁFICO
+       ========================================== -->
+  <!-- Na publicação final, salve a imagem de fundo como floresta.jpg na mesma pasta -->
+  <section class="nd-manifesto" id="manifesto">
+    <!-- Logo gigante em marca d'água rotacionando lentamente -->
+    <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+    <img src="logo.jpg" alt="" class="nd-manifesto-watermark" aria-hidden="true">
+
+    <div class="nd-manifesto-content">
+      <h2 class="nd-manifesto-quote serif">
+        "Não vestimos apenas o corpo. Vestimos momentos."
+      </h2>
+      <p class="nd-manifesto-text">
+        A Nature Divine transforma natureza, movimento e identidade em uma linguagem para viver o verão com presença.
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       CONTATO
+       ========================================== -->
+  <section class="nd-contact" id="contato">
+    <div class="nd-container nd-container-narrow">
+      <span class="section-eyebrow">Atendimento & Conexão</span>
+      <h2 class="section-title serif">Continue a experiência</h2>
+      <p class="section-subtitle" style="font-size: 1.25rem; color: var(--forest-dark); font-weight: 500; margin-bottom: 0.5rem;">
+        Sua próxima história começa aqui.
+      </p>
+      <p class="section-subtitle">
+        Conheça as peças, converse com a marca e acompanhe a Nature Divine nas redes.
+      </p>
+
+      <div class="nd-contact-actions">
+        <a href="https://wa.me/5562995076301" target="_blank" rel="noopener noreferrer" class="btn-contact-wpp">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+          </svg>
+          Conversar pelo WhatsApp
+        </a>
+
+        <a href="https://instagram.com/naturedivine_wer" target="_blank" rel="noopener noreferrer" class="btn-contact-insta">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+          </svg>
+          Instagram
+        </a>
+      </div>
+
+      <p class="nd-contact-note">
+        [Telefone & WhatsApp: (62) 99507-6301 • Atendimento acolhedor e humanizado]
+      </p>
+    </div>
+  </section>
+
+  <!-- ==========================================
+       FOOTER
+       ========================================== -->
+  <footer class="nd-footer">
+    <div class="nd-container">
+      <!-- Na publicação final, salve como logo.png na mesma pasta do index.html -->
+      <img src="logo.jpg" alt="Nature Divine Logo" class="nd-footer-logo">
+      <div class="nd-footer-title serif">NATURE DIVINE</div>
+      <p class="nd-footer-slogan serif">Vista a natureza. Sinta sua essência.</p>
+
+      <ul class="nd-footer-links">
+        <li><a href="#top">Início</a></li>
+        <li><a href="#historia">História</a></li>
+        <li><a href="#essencia">Essência</a></li>
+        <li><a href="#colecao">Coleção</a></li>
+        <li><a href="#manifesto">Manifesto</a></li>
+        <li><a href="https://instagram.com/naturedivine_wer" target="_blank" rel="noopener noreferrer">Instagram</a></li>
+        <li><a href="https://wa.me/5562995076301" target="_blank" rel="noopener noreferrer">WhatsApp</a></li>
+      </ul>
+
+      <p class="nd-footer-copy">
+        © 2026 Nature Divine. Todos os direitos reservados.
+      </p>
+    </div>
+  </footer>
+
+  <!-- Botão Flutuante WhatsApp -->
+  <a href="https://wa.me/5562995076301" target="_blank" rel="noopener noreferrer" class="nd-floating-wpp" aria-label="Abrir conversa no WhatsApp">
+    <svg viewBox="0 0 24 24" aria-hidden="true">
+      <path d="M.057 24l1.687-6.163c-1.041-1.804-1.588-3.849-1.587-5.946.003-6.556 5.338-11.891 11.893-11.891 3.181.001 6.167 1.24 8.413 3.488 2.245 2.248 3.481 5.236 3.48 8.414-.003 6.557-5.338 11.892-11.893 11.892-1.99-.001-3.951-.5-5.688-1.448l-6.305 1.654zm6.597-3.807c1.676.995 3.276 1.591 5.392 1.592 5.448 0 9.886-4.434 9.889-9.885.002-5.462-4.415-9.89-9.881-9.892-5.452 0-9.887 4.434-9.889 9.884-.001 2.225.651 3.891 1.746 5.634l-.999 3.648 3.742-.981zm11.387-5.464c-.074-.124-.272-.198-.57-.347-.297-.149-1.758-.868-2.031-.967-.272-.099-.47-.149-.669.149-.198.297-.768.967-.941 1.165-.173.198-.347.223-.644.074-.297-.149-1.255-.462-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.297-.347.446-.521.151-.172.2-.296.3-.495.099-.198.05-.372-.025-.521-.075-.148-.669-1.611-.916-2.206-.242-.579-.487-.501-.669-.51l-.57-.01c-.198 0-.52.074-.792.372s-1.04 1.016-1.04 2.479 1.065 2.876 1.213 3.074c.149.198 2.095 3.2 5.076 4.487.709.306 1.263.489 1.694.626.712.226 1.36.194 1.872.118.571-.085 1.758-.719 2.006-1.413.248-.695.248-1.29.173-1.414z"/>
+    </svg>
+  </a>
+
+  <!-- Lógica de interação do Header e Mobile Drawer -->
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      const header = document.getElementById('mainHeader');
+      const burgerBtn = document.getElementById('burgerBtn');
+      const mobileMenu = document.getElementById('mobileMenu');
+      const mobileLinks = document.querySelectorAll('.mobile-nav-link');
+
+      // Scroll effect no header
+      const handleScroll = () => {
+        if (window.scrollY > 40) {
+          header.classList.add('scrolled');
+        } else {
+          header.classList.remove('scrolled');
+        }
+      };
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      // Menu mobile toggle
+      const toggleMenu = () => {
+        const isOpen = mobileMenu.classList.toggle('open');
+        burgerBtn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        mobileMenu.setAttribute('aria-hidden', isOpen ? 'false' : 'true');
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+      };
+
+      burgerBtn.addEventListener('click', toggleMenu);
+
+      mobileLinks.forEach(link => {
+        link.addEventListener('click', () => {
+          if (mobileMenu.classList.contains('open')) {
+            toggleMenu();
+          }
+        });
+      });
+    });
+  </script>
+<script>
+/* Skip artifact shell — fixed helpers served beside every artifact. */
+(function () {
+  "use strict";
+
+  var fmt = {
+    num: function (v, opts) { return new Intl.NumberFormat("pt-BR", opts || {}).format(v); },
+    brl: function (v) { return new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL" }).format(v); },
+    pct: function (v) { return new Intl.NumberFormat("pt-BR", { style: "percent", maximumFractionDigits: 1 }).format(v); }
+  };
+
+  // axisFmt keeps axis tick labels short (compact notation) so long values
+  // (e.g. full BRL amounts) never clip against the plot edge.
+  function axisFmt(v) {
+    return fmt.num(v, { notation: "compact", maximumFractionDigits: 1 });
+  }
+
+  // format accepts a function OR one of the fmt names ("num" | "brl" | "pct").
+  function coerceFormat(spec) {
+    if (typeof spec === "function") return spec;
+    if (typeof spec === "string" && fmt[spec]) return fmt[spec];
+    return function (v) { return fmt.num(v); };
+  }
+
+  function accent() {
+    return getComputedStyle(document.documentElement).getPropertyValue("--accent").trim() || "#2563eb";
+  }
+  function mutedColor() {
+    return getComputedStyle(document.documentElement).getPropertyValue("--text-muted").trim() || "#5b6472";
+  }
+  function svgEl(tag, attrs) {
+    var el = document.createElementNS("http://www.w3.org/2000/svg", tag);
+    for (var k in attrs) el.setAttribute(k, attrs[k]);
+    return el;
+  }
+  function frame(el, w, h) {
+    var svg = svgEl("svg", { viewBox: "0 0 " + w + " " + h, role: "img" });
+    el.innerHTML = "";
+    el.appendChild(svg);
+    return svg;
+  }
+
+  // maxOf guards the axis scale: empty values would give -Infinity (truthy,
+  // so "|| 1" can't catch it) and a non-positive max would flip the chart.
+  function maxOf(values) {
+    var m = values.length ? Math.max.apply(null, values) : 0;
+    return m > 0 ? m : 1;
+  }
+
+  // bar(el, {labels:[], values:[], color?, format?}) — vertical bar chart.
+  function bar(el, cfg) {
+    var W = 640, H = 280, padL = 46, padB = 30, padT = 12;
+    var svg = frame(el, W, H);
+    var max = maxOf(cfg.values);
+    var n = cfg.values.length;
+    var plotW = W - padL - 12, plotH = H - padT - padB;
+    var step = plotW / n, bw = Math.min(step * 0.62, 64);
+    var color = cfg.color || accent();
+    var f = coerceFormat(cfg.format);
+    for (var g = 0; g <= 4; g++) {
+      var gy = padT + plotH - (plotH * g) / 4;
+      svg.appendChild(svgEl("line", { x1: padL, y1: gy, x2: W - 12, y2: gy, stroke: "currentColor", "stroke-opacity": 0.08 }));
+      var lbl = svgEl("text", { x: padL - 8, y: gy + 4, "text-anchor": "end", "font-size": 10, fill: mutedColor() });
+      lbl.textContent = axisFmt((max * g) / 4);
+      svg.appendChild(lbl);
+    }
+    cfg.values.forEach(function (v, i) {
+      var bh = Math.max(0, (v / max) * plotH);
+      var x = padL + i * step + (step - bw) / 2;
+      var y = padT + plotH - bh;
+      var r = svgEl("rect", { x: x, y: y, width: bw, height: bh, rx: 4, fill: color });
+      var t = svgEl("title", {});
+      t.textContent = cfg.labels[i] + ": " + f(v);
+      r.appendChild(t);
+      svg.appendChild(r);
+      var tx = svgEl("text", { x: x + bw / 2, y: H - 10, "text-anchor": "middle", "font-size": 11, fill: mutedColor() });
+      tx.textContent = cfg.labels[i];
+      svg.appendChild(tx);
+    });
+  }
+
+  // line(el, {labels:[], values:[], color?, format?}) — single-series line.
+  function line(el, cfg) {
+    var W = 640, H = 280, padL = 46, padB = 30, padT = 12;
+    var svg = frame(el, W, H);
+    var max = maxOf(cfg.values);
+    var n = cfg.values.length;
+    var plotW = W - padL - 16, plotH = H - padT - padB;
+    var color = cfg.color || accent();
+    var f = coerceFormat(cfg.format);
+    for (var g = 0; g <= 4; g++) {
+      var gy = padT + plotH - (plotH * g) / 4;
+      svg.appendChild(svgEl("line", { x1: padL, y1: gy, x2: W - 16, y2: gy, stroke: "currentColor", "stroke-opacity": 0.08 }));
+      var lbl = svgEl("text", { x: padL - 8, y: gy + 4, "text-anchor": "end", "font-size": 10, fill: mutedColor() });
+      lbl.textContent = axisFmt((max * g) / 4);
+      svg.appendChild(lbl);
+    }
+    var pts = cfg.values.map(function (v, i) {
+      var x = padL + (n === 1 ? plotW / 2 : (plotW * i) / (n - 1));
+      var y = padT + plotH - (v / max) * plotH;
+      return [x, y];
+    });
+    var d = pts.map(function (p, i) { return (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1); }).join(" ");
+    svg.appendChild(svgEl("path", { d: d, fill: "none", stroke: color, "stroke-width": 2, "stroke-linejoin": "round" }));
+    pts.forEach(function (p, i) {
+      var c = svgEl("circle", { cx: p[0], cy: p[1], r: 3.5, fill: color });
+      var t = svgEl("title", {});
+      t.textContent = cfg.labels[i] + ": " + f(cfg.values[i]);
+      c.appendChild(t);
+      svg.appendChild(c);
+      var tx = svgEl("text", { x: p[0], y: H - 10, "text-anchor": "middle", "font-size": 11, fill: mutedColor() });
+      tx.textContent = cfg.labels[i];
+      svg.appendChild(tx);
+    });
+  }
+
+  // donut(el, {labels:[], values:[], colors?}) — donut with center total.
+  function donut(el, cfg) {
+    var W = 320, H = 280, cx = W / 2, cy = H / 2, R = 92, r = 58;
+    var svg = frame(el, W, H);
+    var total = cfg.values.reduce(function (a, b) { return a + b; }, 0) || 1;
+    var palette = cfg.colors || [accent(), "#1baf7a", "#eda100", "#e34948", "#4a3aa7", "#e87ba4"];
+    var a0 = -Math.PI / 2;
+    cfg.values.forEach(function (v, i) {
+      var a1 = a0 + (v / total) * Math.PI * 2;
+      var large = a1 - a0 > Math.PI ? 1 : 0;
+      var p = ["M", cx + R * Math.cos(a0), cy + R * Math.sin(a0),
+        "A", R, R, 0, large, 1, cx + R * Math.cos(a1), cy + R * Math.sin(a1),
+        "L", cx + r * Math.cos(a1), cy + r * Math.sin(a1),
+        "A", r, r, 0, large, 0, cx + r * Math.cos(a0), cy + r * Math.sin(a0), "Z"].join(" ");
+      var path = svgEl("path", { d: p, fill: palette[i % palette.length] });
+      var t = svgEl("title", {});
+      t.textContent = cfg.labels[i] + ": " + fmt.num(v) + " (" + fmt.pct(v / total) + ")";
+      path.appendChild(t);
+      svg.appendChild(path);
+      a0 = a1;
+    });
+    var center = svgEl("text", { x: cx, y: cy + 5, "text-anchor": "middle", "font-size": 20, "font-weight": 650, fill: "currentColor" });
+    center.textContent = fmt.num(total);
+    svg.appendChild(center);
+  }
+
+  window.skipShell = { fmt: fmt };
+  window.skipChart = { bar: bar, line: line, donut: donut };
+})();
+
+</script>
+</body>
+</html>
